@@ -66,20 +66,16 @@ object Solution {
   def oddEvenList(head: ListNode): ListNode = {
     if (head == null || head.next == null) head
     else {
-      var odd: ListNode = null
-      var even: ListNode = null
-      var it = head
-      var i: Int = 0
-      while (it != null) {
-        println(it.x)
-        if (i.toDouble % 2 == 0 && even != null) {
-          val next = even.next
-          even = it
-
-        }
-        it = it.next
-        i += 1
+      var odd = head
+      var even = head.next
+      val tmp = even
+      while (even != null && even.next != null) {
+        odd.next = odd.next.next
+        even.next = even.next.next
+        odd = odd.next
+        even = even.next
       }
+      odd.next = tmp
       head
     }
   }
