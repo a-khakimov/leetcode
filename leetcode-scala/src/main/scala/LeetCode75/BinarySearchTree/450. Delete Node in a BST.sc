@@ -24,9 +24,29 @@ object Solution {
     array.foreach(println)
   }
 
-
   def deleteNode(root: TreeNode, key: Int): TreeNode = {
+    if (root == null) return null
 
+    if (key < root.value) {
+      root.left = deleteNode(root.left, key)
+    } else if (key > root.value) {
+      root.right = deleteNode(root.right, key)
+    } else {
+      if (root.left == null) return root.right
+      if (root.right == null) return root.left
+      val minNode = findMin(root.right)
+      root.value = minNode.value
+      root.right = deleteNode(root.right, minNode.value)
+    }
+    root
+  }
+
+  private def findMin(node: TreeNode): TreeNode = {
+    var current = node
+    while (current.left != null) {
+      current = current.left
+    }
+    current
   }
 }
 
